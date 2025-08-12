@@ -5,6 +5,7 @@ namespace Filament\Upgrade\Commands;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'filament:check-plugins-compatibility-with-v4')]
 class CheckPluginsCompatibilityWithV4 extends Command
