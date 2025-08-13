@@ -10,7 +10,7 @@ trait HasTenantMenu
     /**
      * @var array<Action>
      */
-    protected array $tenantMenuItems = [];
+    protected ?array $tenantMenuItems = null;
 
     public function bootHasTenantMenu(): void
     {
@@ -36,6 +36,11 @@ trait HasTenantMenu
      */
     protected function getTenantMenuItems(): array
     {
+        if (! isset($this->tenantMenuItems)) {
+            // If tenant menu items are not set, fetch them from Filament
+            $this->tenantMenuItems = Filament::getTenantMenuItems();
+        }
+
         return $this->tenantMenuItems;
     }
 }
