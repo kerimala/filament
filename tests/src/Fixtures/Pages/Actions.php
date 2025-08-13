@@ -47,6 +47,8 @@ class Actions extends Page
                             $this->dispatch('nested-called', arguments: $arguments);
                         }),
                 ]),
+            Action::make('record-arguments')
+                ->record(fn (array $arguments) => $arguments['key']),
             Action::make('parent')
                 ->schema([
                     TextInput::make('foo')

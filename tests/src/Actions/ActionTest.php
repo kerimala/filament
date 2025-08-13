@@ -3,6 +3,7 @@
 use Filament\Actions\Action;
 use Filament\Actions\Testing\TestAction;
 use Filament\Notifications\Notification;
+use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tests\Actions\TestCase;
 use Filament\Tests\Fixtures\Pages\Actions;
@@ -129,6 +130,18 @@ it('can mount an action with arguments', function (): void {
         ->callMountedAction()
         ->assertDispatched('arguments-called', arguments: [
             'payload' => $payload,
+        ]);
+});
+
+it('can mount an action record with arguments', function (): void {
+    livewire(Actions::class)
+        ->mountAction([
+            TestAction::make('record-arguments')->arguments(['key' => 123]),
+            'record-arguments',
+        ])
+        ->callMountedAction()
+        ->assertDispatched('record-arguments-called', arguments: [
+            'key' => 123,
         ]);
 });
 
