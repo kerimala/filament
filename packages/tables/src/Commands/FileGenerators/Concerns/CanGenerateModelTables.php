@@ -22,7 +22,7 @@ trait CanGenerateModelTables
 
         return <<<PHP
             return \$table
-                ->query(fn (): {$this->simplifyFqn(Builder::class)} => {$this->simplifyFqn($model)}::query())
+                ->query({$this->outputQueryBody($model)})
                 ->columns([
                     {$this->outputTableColumns($model)}
                 ])
@@ -216,5 +216,14 @@ trait CanGenerateModelTables
         }
 
         return implode(PHP_EOL . '        ', $columns);
+    }
+    public function outputQueryBody(?string $model = null): string {
+        if(blank($model)) {
+            return "";
+        }
+
+        return (string) new  Literal(<<<PHP
+        fn (): {$this->simplifyFqn(Builder::class)} => {$this->simplifyFqn($model)}::query()
+        PHP);
     }
 }
