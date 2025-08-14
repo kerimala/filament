@@ -2,7 +2,6 @@
 
 namespace Filament\Upgrade;
 
-use Filament\Upgrade\Commands\CheckPluginsCompatibilityWithV4;
 use Filament\Upgrade\Commands\UpgradeDirectoryStructureToV4Command;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +11,6 @@ class UpgradeServiceProvider extends ServiceProvider
     {
         $this->commands([
             UpgradeDirectoryStructureToV4Command::class,
-            CheckPluginsCompatibilityWithV4::class,
         ]);
     }
 }
