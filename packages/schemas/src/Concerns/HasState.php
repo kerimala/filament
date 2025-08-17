@@ -17,9 +17,9 @@ trait HasState
     protected string $cachedAbsoluteStatePath;
 
     /**
-     * @var object | array<string, mixed> | null
+     * @var array<string, mixed> | object | null
      */
-    protected object | array | null $constantState = null;
+    protected array | object | null $constantState = null;
 
     protected bool | Closure $shouldPartiallyRender = false;
 
@@ -29,9 +29,9 @@ trait HasState
     protected ?array $dehydratedComponentsCache = null;
 
     /**
-     * @param  object | array<string, mixed> | null  $state
+     * @param  array<string, mixed> | object | null  $state
      */
-    public function state(object | array | null $state): static
+    public function state(array | object | null $state): static
     {
         $this->constantState($state);
 
@@ -77,7 +77,7 @@ trait HasState
     }
 
     /**
-     * @param  object | array<string, mixed> | null  $state
+     * @param  array<string, mixed> | object | null  $state
      */
     public function constantState(array | object | null $state): static
     {
@@ -384,9 +384,9 @@ trait HasState
     /**
      * @internal Do not use this method outside the internals of Filament. It is subject to breaking changes in minor and patch releases.
      *
-     * @return object | array<string, mixed>
+     * @return array<string, mixed> | object
      */
-    public function getConstantState(): object | array
+    public function getConstantState(): array | object
     {
         return $this->constantState ?? $this->getRecord(withParentComponentRecord: false) ?? $this->getParentComponent()?->getContainer()->getConstantState() ?? $this->getRecord() ?? throw new Exception('Schema has no [record()] or [state()] set.');
     }
