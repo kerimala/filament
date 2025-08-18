@@ -72,6 +72,11 @@ class UpgradeTailwindToV4Command extends Command
         }
 
         if (! $isDryRun) {
+            if (! $this->components->confirm('The Tailwind CSS v4 upgrade tool is experimental and will make changes to your project. Please make sure you have committed your work. Do you want to continue?', default: true)) {
+                $this->components->info('Tailwind upgrade cancelled. You can run the tool later by executing the command again or running the upgrade tool manually.');
+                return self::SUCCESS;
+            }
+
             $this->clearPublicFilamentAssets();
 
             // Clear Laravel caches before running the Tailwind upgrade
