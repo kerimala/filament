@@ -1,7 +1,7 @@
 .fi-modal {
     &.fi-modal-slide-over,
     &.fi-width-screen {
-        & .fi-modal-window {
+        > .fi-modal-window-ctn > .fi-modal-window {
             @apply h-dvh;
         }
 
