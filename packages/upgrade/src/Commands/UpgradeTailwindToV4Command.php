@@ -3,6 +3,7 @@
 namespace Filament\Upgrade\Commands;
 
 use Filament\Support\Commands\Concerns\CanManipulateFiles;
+use Filament\Support\Commands\Exceptions\FailureCommandOutput;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -74,6 +75,7 @@ class UpgradeTailwindToV4Command extends Command
         if (! $isDryRun) {
             if (! $this->components->confirm('The Tailwind CSS v4 upgrade tool is experimental and will make changes to your project. Please make sure you have committed your work. Do you want to continue?', default: true)) {
                 $this->components->info('Tailwind upgrade cancelled. You can run the tool later by executing the command again or running the upgrade tool manually.');
+
                 return self::SUCCESS;
             }
 
@@ -116,13 +118,15 @@ class UpgradeTailwindToV4Command extends Command
     {
         $this->pm = $this->option('pm') ?? 'npm';
 
-        @exec("{$this->pm} -v", $pmVersion, $pmVersionExistCode);
-        if (($pmVersionExistCode ?? 1) !== 0) {
-            $this->error('The selected package manager is not available. Please install Node.js tooling before continuing.');
-            exit(self::FAILURE);
+        exec("{$this->pm} -v", $pmVersion, $pmVersionExistCode);
+
+        if ($pmVersionExistCode !== 0) {
+            $this->error('Node.js is not installed. Please install before continuing.');
+
+            throw new FailureCommandOutput;
         }
 
-        $this->info("Using {$this->pm} v" . ($pmVersion[0] ?? 'unknown'));
+        $this->info("Using {$this->pm} v{$pmVersion[0]}");
     }
 
     protected function upgradeThemeCss(string $cssFile, bool $isDryRun = false): void
