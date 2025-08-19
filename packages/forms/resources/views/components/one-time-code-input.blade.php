@@ -9,7 +9,7 @@
             'disabled' => $isDisabled(),
             'id' => $getId(),
             'length' => $getLength(),
-            'placeholder' => $getPlaceholder(),
+            'placeholder' => ($getPlaceholder() === null) ? null : e((string) $getPlaceholder()),
             'readonly' => $isReadOnly(),
             'required' => $isRequired() && (! $isConcealed()),
             $applyStateBindingModifiers('wire:model') => $getStatePath(),
