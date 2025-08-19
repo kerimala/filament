@@ -50,3 +50,23 @@ it('resolves the tenant correctly using domain', function (): void {
     $resolvedTenant = $panel->getTenant($team->getRouteKey());
     expect($resolvedTenant)->toBeSameModel($team);
 });
+
+it('resolves the tenant with custom path correctly from the route', function (): void {
+    $team = Team::factory()->create();
+
+    $panel = Filament::getPanel('tenancy');
+    Filament::setCurrentPanel($panel);
+    Filament::setTenant($team);
+
+    $routeName = 'filament.tenancy.resources.posts.index';
+    $route = Route::getRoutes()->getByName($routeName);
+
+    $request = Request::create(route($routeName, [
+        'tenant' => $team,
+    ]));
+
+    $request->setRouteResolver(fn () => $route->bind($request));
+
+    $resolvedTenant = $panel->getTenant($team->getKey());
+    expect($resolvedTenant)->toBeSameModel($team);
+});
