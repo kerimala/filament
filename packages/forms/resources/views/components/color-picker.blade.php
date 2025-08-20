@@ -17,6 +17,8 @@
     $suffixIconColor = $getSuffixIconColor();
     $suffixLabel = $getSuffixLabel();
     $statePath = $getStatePath();
+    $placeholder = $getPlaceholder();
+    $placeholder = $getPlaceholder();
 @endphp
 
 <x-dynamic-component
@@ -67,7 +69,7 @@
                             'autocomplete' => 'off',
                             'disabled' => $isDisabled,
                             'id' => $getId(),
-                            'placeholder' => ($getPlaceholder() === null) ? null : e((string) $getPlaceholder()),
+                            'placeholder' => filled($placeholder) ? e($placeholder) : null,
                             'required' => $isRequired() && (! $isConcealed()),
                             'type' => 'text',
                             'x-model' . ($isLiveDebounced ? '.debounce.' . $liveDebounce : null) => 'state',
