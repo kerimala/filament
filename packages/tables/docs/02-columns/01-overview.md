@@ -262,23 +262,7 @@ public function table(Table $table): Table
 
 The second parameter is optional and defaults to `'asc'`.
 
-If you pass the name of a table column as the first parameter, Filament will use that column's sorting behavior (custom sorting columns or query function). However, if you need to sort by a column that doesn’t exist in the table or in the database, you should pass a query function instead:
-
-```php
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-
-public function table(Table $table): Table
-{
-    return $table
-        ->columns([
-            // ...
-        ])
-        ->defaultSort(query: function (Builder $query): Builder {
-            return $query->orderBy('stock');
-        });
-}
-```
+If you pass the name of a table column as the first parameter, Filament will use that column's sorting behavior (custom sorting columns or query function).
 
 ### Persisting the sort in the user's session
 
