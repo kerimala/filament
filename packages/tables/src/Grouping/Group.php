@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\HtmlString;
+use Illuminate\Contracts\Support\Htmlable;
 
 class Group extends Component
 {
@@ -250,7 +250,7 @@ class Group extends Component
         return Arr::get($record, $this->getColumn());
     }
 
-    public function getTitle(Model $record): string | HtmlString
+    public function getTitle(Model $record): string | Htmlable
     {
         $column = $this->getColumn();
 
@@ -274,7 +274,7 @@ class Group extends Component
             $title = $title->getLabel();
         }
 
-        if ($title instanceof HtmlString) {
+        if ($title instanceof Htmlable) {
             return $title;
         }
 
