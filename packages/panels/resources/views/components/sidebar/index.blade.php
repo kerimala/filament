@@ -165,9 +165,6 @@
                     group.querySelector(
                         '.fi-sidebar-group-items',
                     ).style.display = 'none'
-                    group
-                        .querySelector('.fi-sidebar-group-collapse-button')
-                        .classList.add('rotate-180')
                 })
         </script>
 
