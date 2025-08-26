@@ -19,6 +19,7 @@
         x-cloak
         :attributes="
             \Filament\Support\prepare_inherited_attributes($extraAttributeBag)
+                ->merge($getExtraInputAttributes())
                 ->class(['fi-fo-rich-editor'])
         "
     >
