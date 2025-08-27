@@ -88,7 +88,6 @@ class RichContentRenderer implements Htmlable
      */
     protected array $nodeProcessors = [];
 
-
     /**
      * @param  string | array<string, mixed> | null  $content
      */
