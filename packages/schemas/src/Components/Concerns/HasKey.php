@@ -8,6 +8,8 @@ trait HasKey
 {
     protected string | Closure | null $key = null;
 
+    protected bool $isKeyInheritable = true;
+
     protected ?string $cachedAbsoluteKey = null;
 
     protected bool $hasCachedAbsoluteKey = false;
@@ -16,9 +18,10 @@ trait HasKey
 
     protected bool $hasCachedInheritanceKey = false;
 
-    public function key(string | Closure | null $key): static
+    public function key(string | Closure | null $key, bool $isInheritable = true): static
     {
         $this->key = $key;
+        $this->isKeyInheritable = $isInheritable;
 
         return $this;
     }
@@ -56,10 +59,12 @@ trait HasKey
             return $this->cachedInheritanceKey;
         }
 
-        $key = $this->getKey();
+        if ($this->isKeyInheritable) {
+            $key = $this->getKey();
 
-        if (filled($key)) {
-            return $this->cacheInheritanceKey($key);
+            if (filled($key)) {
+                return $this->cacheInheritanceKey($key);
+            }
         }
 
         return $this->cacheInheritanceKey($this->getContainer()->getInheritanceKey());
