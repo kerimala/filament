@@ -894,11 +894,12 @@ class RichEditor extends Field implements Contracts\CanBeLengthConstrained
                 return;
             }
 
-            $value = trim($this->getTipTapEditor()
-                ->setContent($value)
-                ->getHTML());
+            $isEmpty = $value['type'] === 'doc' &&
+                count($value['content']) === 1 &&
+                $value['content'][0]['type'] === 'paragraph' &&
+                (! isset($value['content'][0]['content']) || blank($value['content'][0]['content']));
 
-            if ($value === '' || $value === '<p></p>') {
+            if ($isEmpty) {
                 $fail('validation.required')->translate();
             }
         };
