@@ -14,9 +14,9 @@ trait HasKey
 
     protected bool $hasCachedAbsoluteKey = false;
 
-    protected ?string $cachedInheritanceKey = null;
+    protected ?string $cachedAbsoluteInheritanceKey = null;
 
-    protected bool $hasCachedInheritanceKey = false;
+    protected bool $hasCachedAbsoluteInheritanceKey = false;
 
     public function key(string | Closure | null $key, bool $isInheritable = true): static
     {
@@ -53,21 +53,25 @@ trait HasKey
         return $this->cacheAbsoluteKey(implode('.', $keyComponents));
     }
 
-    public function getInheritanceKey(): ?string
+    public function getInheritanceKey(bool $isAbsolute = true): ?string
     {
-        if ($this->hasCachedInheritanceKey) {
-            return $this->cachedInheritanceKey;
+        if ($isAbsolute && $this->hasCachedAbsoluteInheritanceKey) {
+            return $this->cachedAbsoluteInheritanceKey;
+        }
+
+        if (! $isAbsolute) {
+            return $this->isKeyInheritable ? $this->getKey(isAbsolute: false) : null;
         }
 
         if ($this->isKeyInheritable) {
             $key = $this->getKey();
 
             if (filled($key)) {
-                return $this->cacheInheritanceKey($key);
+                return $this->cacheAbsoluteInheritanceKey($key);
             }
         }
 
-        return $this->cacheInheritanceKey($this->getContainer()->getInheritanceKey());
+        return $this->cacheAbsoluteInheritanceKey($this->getContainer()->getInheritanceKey());
     }
 
     protected function cacheAbsoluteKey(?string $key): ?string
@@ -79,12 +83,12 @@ trait HasKey
         }
     }
 
-    protected function cacheInheritanceKey(?string $key): ?string
+    protected function cacheAbsoluteInheritanceKey(?string $key): ?string
     {
         try {
-            return $this->cachedInheritanceKey = $key;
+            return $this->cachedAbsoluteInheritanceKey = $key;
         } finally {
-            $this->hasCachedInheritanceKey = true;
+            $this->hasCachedAbsoluteInheritanceKey = true;
         }
     }
 
@@ -94,10 +98,10 @@ trait HasKey
         $this->hasCachedAbsoluteKey = false;
     }
 
-    protected function flushCachedInheritanceKey(): void
+    protected function flushCachedAbsoluteInheritanceKey(): void
     {
-        $this->cachedInheritanceKey = null;
-        $this->hasCachedInheritanceKey = false;
+        $this->cachedAbsoluteInheritanceKey = null;
+        $this->hasCachedAbsoluteInheritanceKey = false;
     }
 
     public function getLivewireKey(): ?string
