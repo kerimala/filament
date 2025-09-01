@@ -882,4 +882,25 @@ class RichEditor extends Field implements Contracts\CanBeLengthConstrained
 
         return $rules;
     }
+
+    public function getRequiredValidationRule(): string | Closure
+    {
+        if (! $this->isRequired()) {
+            return 'nullable';
+        }
+
+        return function (string $_attribute, mixed $value, Closure $fail): void {
+            if (blank($value)) {
+                return;
+            }
+
+            $value = trim($this->getTipTapEditor()
+                ->setContent($value)
+                ->getHTML());
+
+            if ($value === '' || $value === '<p></p>') {
+                $fail('validation.required')->translate();
+            }
+        };
+    }
 }
