@@ -106,7 +106,7 @@
                         ).style.display = 'none'
                         group
                             .querySelector('.fi-sidebar-group')
-                            .classList.add('fi-collapsed')
+                            ?.classList.add('fi-collapsed')
                     })
             </script>
 
