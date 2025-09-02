@@ -55,7 +55,7 @@ class RichContentRenderer implements Htmlable
     /**
      * @var string | array<string, mixed>
      */
-    protected string|array|null $content = null;
+    protected string | array | null $content = null;
 
     protected ?string $fileAttachmentsDiskName = null;
 
@@ -84,17 +84,17 @@ class RichContentRenderer implements Htmlable
     protected array $cachedMergeTagValues = [];
 
     /**
-     * @param string | array<string, mixed> | null $content
+     * @param  string | array<string, mixed> | null  $content
      */
-    public function __construct(string|array|null $content = null)
+    public function __construct(string | array | null $content = null)
     {
         $this->content($content);
     }
 
     /**
-     * @param string | array<string, mixed> | null $content
+     * @param  string | array<string, mixed> | null  $content
      */
-    public static function make(string|array|null $content = null): static
+    public static function make(string | array | null $content = null): static
     {
         return app(static::class, [
             'content' => $content,
@@ -102,9 +102,9 @@ class RichContentRenderer implements Htmlable
     }
 
     /**
-     * @param string | array<string, mixed> | null $content
+     * @param  string | array<string, mixed> | null  $content
      */
-    public function content(string|array|null $content): static
+    public function content(string | array | null $content): static
     {
         $this->content = $content;
         $this->cachedMergeTagValues = [];
@@ -140,7 +140,7 @@ class RichContentRenderer implements Htmlable
         $storage = Storage::disk($disk);
 
         try {
-            if (!$storage->exists($file)) {
+            if (! $storage->exists($file)) {
                 return null;
             }
         } catch (UnableToCheckFileExistence $exception) {
@@ -162,7 +162,7 @@ class RichContentRenderer implements Htmlable
     }
 
     /**
-     * @param array<RichContentPlugin> $plugins
+     * @param  array<RichContentPlugin>  $plugins
      */
     public function plugins(array $plugins): static
     {
@@ -228,7 +228,7 @@ class RichContentRenderer implements Htmlable
             }
 
             $node->content = [
-                (object)[
+                (object) [
                     'type' => 'text',
                     'text' => $this->getMergeTagValue($node->attrs->id),
                 ],
@@ -292,7 +292,7 @@ class RichContentRenderer implements Htmlable
             app(Underline::class),
             ...array_reduce(
                 $this->getPlugins(),
-                fn(array $carry, RichContentPlugin $plugin): array => [
+                fn (array $carry, RichContentPlugin $plugin): array => [
                     ...$carry,
                     ...$plugin->getTipTapPhpExtensions(),
                 ],
@@ -353,7 +353,7 @@ class RichContentRenderer implements Htmlable
     /**
      * @return string|array<string, mixed>
      */
-    public function toJson(bool $decoded = false): string|array
+    public function toJson(bool $decoded = false): string | array
     {
         $editor = $this->getEditor();
 
@@ -361,11 +361,13 @@ class RichContentRenderer implements Htmlable
             return json_decode($editor->getJSON(), true);
         }
 
+        $this->processMergeTags($editor);
+
         return $editor->getJSON();
     }
 
     /**
-     * @param  ?array<string, mixed> $tags
+     * @param  ?array<string, mixed>  $tags
      */
     public function mergeTags(?array $tags): static
     {
@@ -381,7 +383,7 @@ class RichContentRenderer implements Htmlable
     }
 
     /**
-     * @param  ?array<class-string<RichContentCustomBlock> | array<string, mixed> | Closure> $blocks
+     * @param  ?array<class-string<RichContentCustomBlock> | array<string, mixed> | Closure>  $blocks
      */
     public function customBlocks(?array $blocks): static
     {
@@ -391,7 +393,7 @@ class RichContentRenderer implements Htmlable
     }
 
     /**
-     * @param array<string, mixed> $config
+     * @param  array<string, mixed>  $config
      */
     public function getCustomBlockHtml(string $id, array $config): ?string
     {
