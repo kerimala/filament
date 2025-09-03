@@ -240,7 +240,7 @@ it('does not have a conditional component', function () {
 });
 ```
 
-To check if the component exists and passes a given truth test, you can pass a function to the second argument of `assertSchemaComponentExists()`, returning true or false if the component passes the test or not:
+To check if the component exists and passes a given truth test, you can pass a function to the `checkComponentUsing` argument of `assertSchemaComponentExists()`, returning true or false if the component passes the test or not:
 
 ```php
 use Filament\Forms\Components\Component;
@@ -250,7 +250,7 @@ use function Pest\Livewire\livewire;
 test('comments section has heading', function () {
     livewire(EditPost::class)
         ->assertSchemaComponentExists(
-            key: 'comments-section',
+            'comments-section',
             checkComponentUsing: function (Component $component): bool {
                 return $component->getHeading() === 'Comments';
             },
@@ -269,7 +269,7 @@ use function Pest\Livewire\livewire;
 test('comments section is enabled', function () {
     livewire(EditPost::class)
         ->assertSchemaComponentExists(
-            key: 'comments-section',
+            'comments-section',
             checkComponentUsing: function (Component $component): bool {
                 Assert::assertTrue(
                     $component->isEnabled(),
