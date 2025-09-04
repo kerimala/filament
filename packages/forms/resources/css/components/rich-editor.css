@@ -194,10 +194,6 @@
 
     & img {
         @apply inline-block;
-
-        &.fi-loading {
-            @apply animate-pulse;
-        }
     }
 
     & div[data-type='customBlock'] {
