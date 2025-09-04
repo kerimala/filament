@@ -145,6 +145,10 @@ const LocalFilesPlugin = ({
                     return false
                 }
 
+                if (event.clipboardData?.getData('text').length) {
+                    return false
+                }
+
                 const files = Array.from(event.clipboardData.files).filter(
                     (file) => allowedMimeTypes.includes(file.type),
                 )
