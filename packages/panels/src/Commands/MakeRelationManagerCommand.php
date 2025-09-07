@@ -245,7 +245,17 @@ class MakeRelationManagerCommand extends Command
             $this->configureRelatedResource();
 
             if (blank($this->relatedResourceFqn)) {
+                $this->configureHasViewOperation();
+
                 $this->configureFormSchemaFqn();
+
+                if ($this->hasViewOperation) {
+                    $this->configureInfolistSchemaFqn();
+                }
+
+                if (! $this->hasFileGenerationFlag(FileGenerationFlag::EMBEDDED_PANEL_RESOURCE_TABLES)) {
+                    $this->configureTableFqn();
+                }
 
                 if (blank($this->formSchemaFqn)) {
                     $this->configureIsGeneratedIfNotAlready();
@@ -255,14 +265,8 @@ class MakeRelationManagerCommand extends Command
                         : $this->configureRecordTitleAttributeIfNotAlready();
                 }
 
-                $this->configureHasViewOperation();
-
-                if ($this->hasViewOperation) {
-                    $this->configureInfolistSchemaFqn();
-
-                    if (blank($this->infolistSchemaFqn)) {
-                        $this->configureRecordTitleAttributeIfNotAlready();
-                    }
+                if ($this->hasViewOperation && blank($this->infolistSchemaFqn)) {
+                    $this->configureRecordTitleAttributeIfNotAlready();
                 }
 
                 if ($this->hasFileGenerationFlag(FileGenerationFlag::EMBEDDED_PANEL_RESOURCE_TABLES)) {
@@ -271,8 +275,6 @@ class MakeRelationManagerCommand extends Command
                     $this->isGenerated
                         ? $this->configureRelatedModelFqnIfNotAlready()
                         : $this->configureRecordTitleAttributeIfNotAlready();
-                } else {
-                    $this->configureTableFqn();
                 }
 
                 if (blank($this->tableFqn)) {
