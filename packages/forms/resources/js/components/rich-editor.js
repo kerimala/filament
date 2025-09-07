@@ -103,9 +103,9 @@ export default function richEditorFormComponent({
             })
 
             const debouncedCommit = Alpine.debounce(
-              () => this.$wire.commit(),
-              liveDebounce ?? 300,
-            );
+                () => this.$wire.commit(),
+                liveDebounce ?? 300,
+            )
 
             editor.on('update', ({ editor }) =>
                 this.$nextTick(() => {
