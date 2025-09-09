@@ -580,7 +580,7 @@ return [
 
         'placeholder' => 'I duh thlang rawh...',
 
-        'searching_message' => 'A zawng mek e...',
+        'searching_message' => 'Zawn mek ani...',
 
         'search_prompt' => 'Zawng turin thil chhu rawh...',
 
