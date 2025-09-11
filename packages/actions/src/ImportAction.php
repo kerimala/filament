@@ -283,13 +283,6 @@ class ImportAction extends Action
                         return;
                     }
 
-                    if (
-                        ($jobConnection === 'sync')
-                        || (blank($jobConnection) && (config('queue.default') === 'sync'))
-                    ) {
-                        return;
-                    }
-
                     $failedRowsCount = $import->getFailedRowsCount();
 
                     Notification::make()
