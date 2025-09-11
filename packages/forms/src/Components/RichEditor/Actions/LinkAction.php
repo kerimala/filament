@@ -23,8 +23,7 @@ class LinkAction
             ])
             ->schema([
                 TextInput::make('url')
-                    ->label(__('filament-forms::components.rich_editor.actions.link.modal.form.url.label'))
-                    ->url(),
+                    ->label(__('filament-forms::components.rich_editor.actions.link.modal.form.url.label')),
                 Checkbox::make('shouldOpenInNewTab')
                     ->label(__('filament-forms::components.rich_editor.actions.link.modal.form.should_open_in_new_tab.label')),
             ])
