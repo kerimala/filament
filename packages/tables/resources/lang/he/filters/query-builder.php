@@ -66,8 +66,8 @@ return [
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute = כן',
-                    'inverse' => ':attribute = לא',
+                    'direct' => ':attribute הוא כן',
+                    'inverse' => ':attribute הוא לא',
                 ],
 
             ],
@@ -112,8 +112,8 @@ return [
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute = :date',
-                    'inverse' => ':attribute ≠ :date',
+                    'direct' => ':attribute תאריך זהה ל-:date',
+                    'inverse' => ':attribute שונה מ-:date',
                 ],
 
             ],
@@ -126,8 +126,8 @@ return [
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute = :month',
-                    'inverse' => ':attribute ≠ :month',
+                    'direct' => ':attribute זהה לחודש :month',
+                    'inverse' => ':attribute שונה מחודש :month',
                 ],
 
             ],
@@ -140,8 +140,8 @@ return [
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute = :year',
-                    'inverse' => ':attribute ≠ :year',
+                    'direct' => ':attribute זהה לשנה :year',
+                    'inverse' => ':attribute שונה משנה :year',
                 ],
 
             ],
@@ -174,8 +174,8 @@ return [
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute = :number',
-                    'inverse' => ':attribute ≠ :number',
+                    'direct' => ':attribute שווה ל-:number',
+                    'inverse' => ':attribute שונה מ-:number',
                 ],
 
             ],
@@ -202,8 +202,8 @@ return [
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute ≥ :number',
-                    'inverse' => ':attribute < :number',
+                    'direct' => ':attribute גדול או שווה ל-:number',
+                    'inverse' => ':attribute קטן מ-:number',
                 ],
 
             ],
@@ -435,8 +435,8 @@ return [
                 ],
 
                 'summary' => [
-                    'direct' => ':attribute = :text',
-                    'inverse' => ':attribute ≠ :text',
+                    'direct' => ':attribute שווה ל-:text',
+                    'inverse' => ':attribute שונה מ-:text',
                 ],
 
             ],
