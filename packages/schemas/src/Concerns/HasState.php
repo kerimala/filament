@@ -449,6 +449,34 @@ trait HasState
     }
 
     /**
+     * @internal Do not use this method outside the internals of Filament. It is subject to breaking changes in minor and patch releases.
+     *
+     * @return array<string, mixed>
+     */
+    public function getStateSnapshot(): array
+    {
+        return Component::withVisibilityCache(function (): array {
+            $statePath = $this->getStatePath();
+
+            if (filled($statePath)) {
+                $state = [];
+                data_set($state, $statePath, $this->getRawState());
+            } else {
+                $state = $this->getRawState();
+            }
+
+            $this->dehydrateState($state);
+            $this->mutateDehydratedState($state);
+
+            if ($statePath) {
+                $state = data_get($state, $statePath) ?? [];
+            }
+
+            return $state;
+        });
+    }
+
+    /**
      * @return array<string, mixed> | Arrayable
      */
     public function getRawState(): array | Arrayable
