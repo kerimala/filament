@@ -57,7 +57,7 @@ class QueryBuilder extends BaseFilter
 
     public function getActiveCount(): int
     {
-        return $this->countRules($this->getState()['rules'], $this->getRuleBuilder());
+        return $this->countRules($this->getFormState()['rules'], $this->getRuleBuilder());
     }
 
     /**
