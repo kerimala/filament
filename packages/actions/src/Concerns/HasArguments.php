@@ -29,12 +29,19 @@ trait HasArguments
     /**
      * @param  array<string, mixed>  $arguments
      */
-    public function mergeArguments(array $arguments): static
+    public function mergeArguments(array $arguments, bool $shouldOverwriteExistingArguments = true): static
     {
-        $this->arguments = [
-            ...$this->arguments ?? [],
-            ...$arguments,
-        ];
+        if ($shouldOverwriteExistingArguments) {
+            $this->arguments = [
+                ...$this->arguments ?? [],
+                ...$arguments,
+            ];
+        } else {
+            $this->arguments = [
+                ...$arguments,
+                ...$this->arguments ?? [],
+            ];
+        }
 
         return $this;
     }

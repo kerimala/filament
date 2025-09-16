@@ -495,7 +495,7 @@ trait InteractsWithActions
                 continue;
             }
 
-            $resolvedAction->mergeArguments($action['arguments'] ?? []);
+            $resolvedAction->mergeArguments($action['arguments'] ?? [], shouldOverwriteExistingArguments: false);
             $resolvedAction->nestingIndex($actionNestingIndex);
             $resolvedAction->boot();
 
