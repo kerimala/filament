@@ -510,7 +510,7 @@ Repeater::make('members')
 
 ## Numbering repeater items
 
-Unlike Builders, items in the repeater don't have a number next to their label by default. You may enable this using the `itemNumbers(true)` method:
+You can add the repeater item's number next to its label using the `itemNumbers()` method:
 
 ```php
 use Filament\Forms\Components\Repeater;
@@ -519,7 +519,7 @@ Repeater::make('members')
     ->schema([
         // ...
     ])
-    ->itemNumbers(true)
+    ->itemNumbers()
 ```
 
 ## Simple repeaters with one field
